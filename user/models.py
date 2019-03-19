@@ -14,7 +14,7 @@ class User(models.Model):
     )
     phonenum = models.CharField(max_length=14, unique=True, verbose_name='手机号码')
     nickname = models.CharField(max_length=20, unique=True, verbose_name='昵称')
-    sex = models.CharField(max_length=8, choice=SEX, verbose_name='性别')
+    sex = models.CharField(max_length=8, choices=SEX, verbose_name='性别')
     birth_year = models.IntegerField(default=2000, verbose_name='出生年份')
     birth_month = models.IntegerField(default=1, verbose_name='出生月份')
     birth_day = models.IntegerField(default=1, verbose_name='出生日期')
