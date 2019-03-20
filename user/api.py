@@ -5,6 +5,9 @@ from django.core.cache import cache
 from common import keys
 from user.models import User
 from libs.http import render_json
+from user.forms import ProfileForm
+from user.forms import UploadFileForm
+
 
 class UserConfig(AppConfig):
     name = 'user'
@@ -44,3 +47,25 @@ def check_vcode(request):
             return render_json(code=errors.VCODE_ERR)
     else:
         return render_json(code=errors.PHONENUM_ERR)
+
+
+def get_profile(request):
+    '''获取用户个人资料'''
+    profile_list = request.user.profile.to_dict()
+    return render_json(profile_list)
+
+
+def set_profile(request):
+    '''设置用户的个人信息'''
+    form = ProfileForm(request.POST)
+    if form.is_valid():
+        profile = form.save(commit=False)
+        profile.id = request.session['uid']
+        profile.save()
+        return render_json()
+    else:
+        return render_json(form.errors, errors.PROFILE_ERR)
+
+
+
+

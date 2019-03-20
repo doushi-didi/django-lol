@@ -3,7 +3,7 @@ from django.conf import settings
 from django.http import HttpResponse
 from common.errors import OK
 
-def rend_json(data=None, code=OK):
+def render_json(data=None, code=OK):
     '''将结果渲染成一个 Json数据的Httpresponse'''
     result = {
         'code': code,
